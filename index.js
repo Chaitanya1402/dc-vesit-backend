@@ -32,6 +32,8 @@ app.get("/", (req, res) => {
 
 app.post('/exiftool/image', upload.single('image'), function (req, res) {
     const filename = 'uploads/' + req.file.filename;
+	
+    console.log(`Analyzing metadata for the file : ${filename}`);
 
     childProcess.exec(`${process.env.EXIFTOOL_PATH} -j ${filename}`, function (error, stdout, stderr) {
         if (error) {
