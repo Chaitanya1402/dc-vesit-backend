@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 app.post('/exiftool/image', upload.single('image'), function (req, res) {
     const filename = 'uploads/' + req.file.filename;
 
-    childProcess.exec(`exiftool -j ${filename}`, function (error, stdout, stderr) {
+    childProcess.exec(`${process.env.EXIFTOOL_PATH} -j ${filename}`, function (error, stdout, stderr) {
         if (error) {
             res.status(500).send({ error: error.message });
         } else if (stderr) {
